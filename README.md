@@ -118,9 +118,13 @@ Todos los endpoints requieren token JWT. Para obtenerlo:
 
 ### Pasos
 
-**1. Clonar el repositorio:**
-```bash
-git clone https://github.com/Cat0428/api-festivos.git
+## 📦 Repositorios del proyecto
+
+| Repositorio | Descripción | Enlace |
+|-------------|-------------|--------|
+| api-festivos | API Spring Boot + PostgreSQL | https://github.com/Cat0428/api-festivos |
+| Api-Fechas | API Node.js + MongoDB | https://github.com/Cat0428/Api-Fechas |
+
 cd api-festivos
 ```
 
