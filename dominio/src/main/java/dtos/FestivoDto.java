@@ -4,6 +4,7 @@ public class FestivoDto {
     private String fecha;
     private String descripcion;
     private String festivo;
+    private String nombre;
 
     public FestivoDto() {
     }
@@ -35,5 +36,13 @@ public class FestivoDto {
 
     public void setFestivo(String festivo) {
         this.festivo = festivo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

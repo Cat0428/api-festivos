@@ -107,7 +107,43 @@ http://localhost:8080/swagger-ui/index.html
 
 ## 🔐 Autenticación
 Todos los endpoints requieren token JWT. Para obtenerlo:
-1. Llamar a `/api/usuarios/login/{usuario}/{clave}`
+1. Llamar a `/api/usuarios/login/{cristian}/{123}`
 2. Copiar el token de la respuesta
 3. En Swagger hacer clic en **Authorize** 🔒 y pegar el token
 
+## 🐳 Levantar los servicios con Docker
+
+### Requisitos
+- Docker Desktop instalado y corriendo
+
+### Pasos
+
+**1. Clonar el repositorio:**
+```bash
+git clone https://github.com/Cat0428/api-festivos.git
+cd api-festivos
+```
+
+**2. Crear la red de Docker:**
+```bash
+docker network create redcalendario
+```
+
+**3. Levantar todos los servicios:**
+```bash
+docker-compose up
+```
+
+Esto levanta automáticamente los 4 contenedores:
+- `dockerbdfestivos` — MongoDB (puerto 27018)
+- `dockerapifestivos` — API Node.js (puerto 3000)
+- `dockerbdcalendario` — PostgreSQL (puerto 5433)
+- `dockerapicalendario` — API Spring Boot (puerto 8080)
+
+**4. Probar la API:**
+
+GET http://localhost:8080/api/usuarios/login/cristian/123
+
+**5. Para detener los servicios:**
+```bash
+docker-compose down
