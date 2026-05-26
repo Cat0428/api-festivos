@@ -1,15 +1,19 @@
 package com.festivos.aplicacion.servicios;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.festivos.aplicacion.seguridad.SeguridadServicio;
 import com.festivos.core.interfaces.IUsuarioServicio;
 import com.festivos.dominio.dtos.UsuarioLoginDto;
 import com.festivos.dominio.entidades.Usuario;
+import com.festivos.dominio.entidades.UsuarioAutenticadoEvent;
+import com.festivos.dominio.entidades.UsuarioCreadoEvent;
 import com.festivos.infraestructura.repositorios.IUsuarioRepositorio;
 
 @Service
@@ -21,17 +25,21 @@ public class UsuarioServicio implements IUsuarioServicio {
     @Autowired
     private SeguridadServicio servicioSeguridad;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
     @Override
     public UsuarioLoginDto login(String nombreUsuario, String clave) {
-    Usuario usuarioObtenido = repositorio.login(nombreUsuario, clave);
-    System.out.println("=====> Usuario obtenido: " + usuarioObtenido); // ← esta línea
-    UsuarioLoginDto userLoginResponseDto = new UsuarioLoginDto(usuarioObtenido);
-    if (usuarioObtenido != null) {
-        userLoginResponseDto.setToken(servicioSeguridad.generarToken(nombreUsuario));
+        Usuario usuarioObtenido = repositorio.login(nombreUsuario, clave);
+        UsuarioLoginDto userLoginResponseDto = new UsuarioLoginDto(usuarioObtenido);
+        if (usuarioObtenido != null) {
+            userLoginResponseDto.setToken(servicioSeguridad.generarToken(nombreUsuario));
+            eventPublisher.publishEvent(new UsuarioAutenticadoEvent(
+                this, nombreUsuario, LocalDateTime.now().toString()
+            ));
+        }
+        return userLoginResponseDto;
     }
-    return userLoginResponseDto;
-    }
-    
 
     @Override
     public List<Usuario> listar() {
@@ -52,7 +60,11 @@ public class UsuarioServicio implements IUsuarioServicio {
     @Override
     public Usuario agregar(Usuario usuario) {
         usuario.setId(0);
-        return repositorio.save(usuario);
+        Usuario usuarioGuardado = repositorio.save(usuario);
+        eventPublisher.publishEvent(new UsuarioCreadoEvent(
+            this, usuarioGuardado.getUsuario()
+        ));
+        return usuarioGuardado;
     }
 
     @Override
@@ -78,6 +90,4 @@ public class UsuarioServicio implements IUsuarioServicio {
             return false;
         }
     }
-
-    
 }

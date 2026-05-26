@@ -7,14 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tipo")
 public class Tipo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "tipo", length = 100, nullable = false)
     private String nombreTipo;
@@ -22,12 +21,12 @@ public class Tipo {
     public Tipo() {
     }
 
-    public Tipo(String id, String nombreTipo) {
+    public Tipo(Integer id, String nombreTipo) {
         this.id = id;
         this.nombreTipo = nombreTipo;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -35,12 +34,11 @@ public class Tipo {
         return nombreTipo;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public void setNombreTipo(String nombreTipo) {
         this.nombreTipo = nombreTipo;
     }
-
 }

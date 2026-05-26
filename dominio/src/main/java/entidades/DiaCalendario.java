@@ -13,7 +13,7 @@ public class DiaCalendario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "fecha")
     private String fecha;

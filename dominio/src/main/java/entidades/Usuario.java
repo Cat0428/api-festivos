@@ -14,9 +14,9 @@ public class Usuario {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "secuencia_usuario")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "secuencia_usuario")
     @SequenceGenerator(name = "secuencia_usuario", sequenceName = "secuencia_usuario", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name = "usuario", length = 100, unique = true)
     private String usuario;
