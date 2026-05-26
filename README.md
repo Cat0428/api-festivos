@@ -107,7 +107,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ## 🔐 Autenticación
 Todos los endpoints requieren token JWT. Para obtenerlo:
-1. Llamar a `/api/usuarios/login/{cristian}/{123}`
+1. Llamar a `/api/usuarios/login/{Gato}/{1234}`
 2. Copiar el token de la respuesta
 3. En Swagger hacer clic en **Authorize** 🔒 y pegar el token
 
@@ -146,7 +146,7 @@ Esto levanta automáticamente los 4 contenedores:
 
 **4. Probar la API:**
 
-GET http://localhost:8080/api/usuarios/login/cristian/123
+GET http://localhost:8080/api/usuarios/login/Gato/1234
 
 **5. Para detener los servicios:**
 ```bash
